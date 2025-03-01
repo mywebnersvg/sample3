@@ -18,8 +18,23 @@
     <script src="./female.js"></script>
   </head>
   <body>
+    <a href="https://wa.me/923214566117?text=Hi%2C%20I%20want%20to%20place%20an%20order" class="whatsaapIcon" target="_blank">
+      <img src="./images/whatsaap.jpg" alt="whatsaap"/>
+    </a>
+
     <div class="banner">
       <p>Free Delivery Above PKR 3000</p>
+      <div class="socialIconsMain">
+        <a href="#">
+          <img src="./images/facebook.jpg.jpg" alt="facebook"/>
+        </a>
+        <a href="https://www.instagram.com/wristnneck.pk?igsh=OHdhcWNqNnpsOWlj">
+          <img src="./images/instagram.jpg" alt="Instagram"/>
+        </a>
+        <a href="https://www.tiktok.com/@wrist.n.neck?_t=ZS-8uK4n8Vn4ki&_r=1">
+          <img src="./images/tiktok.jpg" alt="tikTok"/>
+        </a>
+      </div>
     </div>
     <nav class="container">
       <div class="navMain">
@@ -27,13 +42,13 @@
 
    
           <div class="categorySelect">
-            <a href="./male.html">Male</a>
-            <a href="./female.html">Female</a>
+            <a href="./male.html">Men</a>
+            <a href="./female.html">Women</a>
             <a href="./uniSex.html">UniSex</a>
           </div>
  
         
-        <!-- <div onclick="openNav()" class="menuContainer">
+        <div onclick="openNav()" class="menuContainer">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -53,11 +68,10 @@
           <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"
             >&times;</a
           >
-          <a href="#">About</a>
-          <a href="#">Services</a>
-          <a href="#">Clients</a>
-          <a href="#">Contact</a>
-        </div> -->
+          <a href="./male.html">Men</a>
+          <a href="./female.html">Women</a>
+          <a href="./uniSex.html">UniSex</a>
+        </div>
         <a href="./index.html" class="mainLogo">WristnNeck</a>
         <div class="iconContainer">
           <a style="display: flex;" class="loginButton" id="profileLink">
@@ -78,8 +92,6 @@
     </div>
     </nav>
 
-
-
     <div class="categoryMainContainer">
 
     <h3>Female</h3>
@@ -97,6 +109,8 @@
           </button>
         </template>
         <script>
+
+
           // Update the cart count when the page loads
           document.addEventListener("DOMContentLoaded", () => {
             const cart = JSON.parse(localStorage.getItem("cart")) || [];

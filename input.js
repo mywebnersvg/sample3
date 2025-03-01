@@ -12,15 +12,21 @@ window.onclick = function (event) {
 };
 
 // Open and Close Navigation
+const mainHome = document.getElementById("mainHome");
+console.log(mainHome); // Should log the mainHome element
+
 function openNav() {
   document.getElementById("mySidenav").style.width = "250px";
   document.getElementById("mySidenav").style.left = "40px";
+  document.getElementById("mainHome").style.zIndex = "-1"; // Ensure it's visible
 }
 
 function closeNav() {
   document.getElementById("mySidenav").style.width = "0";
   document.getElementById("mySidenav").style.left = "-20%";
+  document.getElementById("mainHome").style.zIndex = "auto";
 }
+
 
 document.addEventListener("DOMContentLoaded", () => {
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";

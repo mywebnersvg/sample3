@@ -4,9 +4,92 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Cart</title>
-    <link rel="stylesheet" href="./input.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kumar+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./input.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Kumar+One&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
 </head>
 <body>
+    <a href="https://wa.me/923214566117?text=Hi%2C%20I%20want%20to%20place%20an%20order" class="whatsaapIcon" target="_blank">
+        <img src="./images/whatsaap.jpg" alt="whatsaap"/>
+      </a>
+  
+      <div class="banner">
+        <p>Free Delivery Above PKR 3000</p>
+        <div class="socialIconsMain">
+          <a href="#">
+            <img src="./images/facebook.jpg.jpg" alt="facebook"/>
+          </a>
+          <a href="https://www.instagram.com/wristnneck.pk?igsh=OHdhcWNqNnpsOWlj">
+            <img src="./images/instagram.jpg" alt="Instagram"/>
+          </a>
+          <a href="https://www.tiktok.com/@wrist.n.neck?_t=ZS-8uK4n8Vn4ki&_r=1">
+            <img src="./images/tiktok.jpg" alt="tikTok"/>
+          </a>
+        </div>
+      </div>
+      <nav class="container">
+        <div class="navMain">
+        <div class="navContainer">
+  
+     
+            <div class="categorySelect">
+              <a href="./male.html">Men</a>
+              <a href="./female.html">Women</a>
+              <a href="./uniSex.html">UniSex</a>
+            </div>
+   
+          
+          <div onclick="openNav()" class="menuContainer">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="menuIcon"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+              />
+            </svg>
+          </div>
+          <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"
+              >&times;</a
+            >
+            <a href="./male.html">Men</a>
+            <a href="./female.html">Women</a>
+            <a href="./uniSex.html">UniSex</a>
+          </div>
+          <a href="./index.html" class="mainLogo">WristnNeck</a>
+          <div class="iconContainer">
+            <a style="display: flex;" class="loginButton" id="profileLink">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="iconNav" id="loginIcon">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+              </svg>
+            </a>
+            
+            <a href="./addCart.html" class="cartLink">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="iconNav">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+              </svg>
+              <span id="cartCount">0</span>
+          </a>
+          </div>
+  
+        </div>
+      </div>
+      </nav>
     <!-- Cart Page -->
     <div class="accessoriePageContainer">
         <h1 class="accesorieHeading">Your Cart</h1>
@@ -24,6 +107,60 @@
     </div>
 
     <script>
+
+window.onclick = function (event) {
+    const loginModal = document.getElementById("loginModal");
+    const signUpModal = document.getElementById("signUpModal");
+  
+    if (event.target === loginModal) {
+      loginModal.style.display = "none";
+    }
+    if (event.target === signUpModal) {
+      signUpModal.style.display = "none";
+    }
+  };
+  
+  // Open and Close Navigation
+  const mainHome = document.getElementById("mainHome");
+  console.log(mainHome); // Should log the mainHome element
+  
+  function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+    document.getElementById("mySidenav").style.left = "40px";
+    document.getElementById("mainHome").style.zIndex = "-1"; // Ensure it's visible
+  }
+  
+  function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("mySidenav").style.left = "-20%";
+    document.getElementById("mainHome").style.zIndex = "auto";
+  }
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  
+    // Update the profile link based on login status
+    const profileLink = document.querySelector("#profileLink");
+    if (profileLink) {
+      if (isLoggedIn) {
+        profileLink.href = "./logout.html";
+        profileLink.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="iconNav" id="loginIcon">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+          </svg> <p>Logout</p>
+        `;
+      } else {
+        profileLink.href = "./login.html";
+        profileLink.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="iconNav" id="loginIcon">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+          </svg> <p>Login</p>
+        `;
+      }
+    }
+  });
+
+
         document.addEventListener("DOMContentLoaded", () => {
             const cartItemsContainer = document.getElementById("cartItems");
             const cart = JSON.parse(localStorage.getItem("cart")) || [];

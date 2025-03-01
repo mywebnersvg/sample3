@@ -15,7 +15,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
-    <script src="./input2.js"></script>
   </head>
   <body>
     <a href="https://wa.me/923214566117?text=Hi%2C%20I%20want%20to%20place%20an%20order" class="whatsaapIcon" target="_blank">
@@ -25,9 +24,15 @@
     <div class="banner">
       <p>Free Delivery Above PKR 3000</p>
       <div class="socialIconsMain">
-        <img src="./images/facebook.jpg.jpg" alt="facebook"/>
-        <img src="./images/instagram.jpg" alt="Instagram"/>
-        <img src="./images/tiktok.jpg" alt="tikTok"/>
+        <a href="#">
+          <img src="./images/facebook.jpg.jpg" alt="facebook"/>
+        </a>
+        <a href="https://www.instagram.com/wristnneck.pk?igsh=OHdhcWNqNnpsOWlj">
+          <img src="./images/instagram.jpg" alt="Instagram"/>
+        </a>
+        <a href="https://www.tiktok.com/@wrist.n.neck?_t=ZS-8uK4n8Vn4ki&_r=1">
+          <img src="./images/tiktok.jpg" alt="tikTok"/>
+        </a>
       </div>
     </div>
     <nav class="container">
@@ -36,8 +41,8 @@
 
    
           <div class="categorySelect">
-            <a href="./male.html">Male</a>
-            <a href="./female.html">Female</a>
+            <a href="./male.html">Men</a>
+            <a href="./female.html">Women</a>
             <a href="./uniSex.html">UniSex</a>
           </div>
  
@@ -62,11 +67,11 @@
           <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"
             >&times;</a
           >
-          <a href="./male.html">Male</a>
-          <a href="./female.html">Female</a>
+          <a href="./male.html">Men</a>
+          <a href="./female.html">Women</a>
           <a href="./uniSex.html">UniSex</a>
         </div>
-        <a href="./index2.html" class="mainLogo">WristnNeck</a>
+        <a href="./index.html" class="mainLogo">WristnNeck</a>
         <div class="iconContainer">
           <a style="display: flex;" class="loginButton" id="profileLink">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="iconNav" id="loginIcon">
@@ -88,7 +93,7 @@
 
     <!--  Main Background  -->
     
-    <div class="mainHomeContainer">
+    <div class="mainHomeContainer" id="mainHome">
     <img src="./images/boyPhoto.jpg" alt="boys" class="homeImg"/>
     <img src="./images/girlPhoto.jpg" alt="girl" class="homeImg"/>
     <img src="./images/both.jpg" alt="both" class="homeImg"/>
@@ -116,21 +121,6 @@
     </h2>
 
     <div class="categoryMainContainer">
-
-    <h3>Male</h3>
-    <div id="boysProducts" class="acceroiesContainer"></div>
-    <a href="./male.html" style="text-decoration: none;">
-    <button type="button" class="vieMoreBtn" id="viewMoreMale">
-      View More
-    </button>
-  </a>
-    
-    <h3>Female</h3>
-    <div id="girlsProducts" class="acceroiesContainer"></div>
-    <a href="./female.html" style="text-decoration: none;">
-      <button type="button" class="vieMoreBtn" id="viewMoreMale">
-        View More
-      </button>
     
     <h3>Uni Sex</h3>
     <div id="bothProducts" class="acceroiesContainer"></div>
@@ -139,6 +129,22 @@
         View More
       </button>
     </a>
+
+    <h3>Men</h3>
+    <div id="boysProducts" class="acceroiesContainer"></div>
+    <a href="./male.html" style="text-decoration: none;">
+    <button type="button" class="vieMoreBtn" id="viewMoreMale">
+      View More
+    </button>
+  </a>
+    
+    <h3>Women</h3>
+    <div id="girlsProducts" class="acceroiesContainer"></div>
+    <a href="./female.html" style="text-decoration: none;">
+      <button type="button" class="vieMoreBtn" id="viewMoreMale">
+        View More
+      </button>
+
   </div>
         
         <!-- Template for Product Card -->
@@ -175,6 +181,9 @@ for (let i = 0; i < repeatCount; i++) {
   p.textContent = text;
   bannerContainer.appendChild(p);
 }
+
     </script>
+
+<script src="./input2.js"></script>
   </body>
 </html>
