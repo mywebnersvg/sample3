@@ -130,9 +130,9 @@
                     <div class="selectColorContainer">
                         <label>Select Color -</label>
                         <div class="selectColorMain">
-                            <div class="goldenColor selectColor"></div>
-                            <div class="blackColor selectColor"></div>
-                            <div class="silverColor selectColor"></div>
+                            <div class="goldenColor selectColor" data-color="golden"></div>
+                            <div class="blackColor selectColor" data-color="black"></div>
+                            <div class="silverColor selectColor" data-color="silver"></div>
                         </div>
                     </div>
                     <button onclick="buyNow()" type="button" class="buyNowBtn">
@@ -183,12 +183,16 @@
                     <div style="font-size: 20px; font-weight: 700;" id="quantityValue"></div>
                 </div>
                 <div class="confirmedResult">
+                    <label>Selected Color</label>
+                    <div style="font-size: 20px; font-weight: 700;" id="selectedColor"></div>
+                </div>
+                <div class="confirmedResult">
                     <label>Total Item Price</label>
                    <div style="font-size: 20px; font-weight: 700;" id="itemsTotalPrice"></div>
                 </div>
                 <div class="confirmedResult">
                     <label>Shipping Value</label>
-                   <div style="font-size: 20px; font-weight: 700;" id="shippingValue">0</div>
+                   <div style="font-size: 20px; font-weight: 700;" id="shippingValue">Free</div>
                 </div>
                 <div class="confirmedResult">
                     <label>Total Price</label>
@@ -319,6 +323,27 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+    const colorOptions = document.querySelectorAll(".selectColor");
+    const selectedColorText = document.getElementById("selectedColor");
+
+    let selectedColor = "";
+
+    colorOptions.forEach(color => {
+        color.addEventListener("click", () => {
+            // Remove 'selected' class from all
+            colorOptions.forEach(c => c.classList.remove("selected"));
+
+            // Add 'selected' class to the clicked one
+            color.classList.add("selected");
+
+            // Update selected color text
+            selectedColor = color.getAttribute("data-color");
+            selectedColorText.textContent = selectedColor.charAt(0).toUpperCase() + selectedColor.slice(1);
+        });
+    });
+});
+
 function goBack() {
     window.history.back();
 }
@@ -404,7 +429,30 @@ document.addEventListener("DOMContentLoaded", () => {
 let modalBuyNow = document.getElementById("modalBuyNow");
 let detailBody = document.getElementById("detailBody")
 
+function clearFormFields() {
+    // Clear input fields
+    document.getElementById("name").value = "";
+    document.getElementById("phoneNumber").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("cityInput").value = "";
+    document.getElementById("address").value = "";
+    document.getElementById("quantity").value = "1";
+
+    // Clear selected color
+    const colorOptions = document.querySelectorAll(".selectColor");
+    colorOptions.forEach(color => color.classList.remove("selected"));
+    document.getElementById("selectedColor").textContent = "";
+
+    // Hide error messages
+    document.getElementById("nameError").style.display = "none";
+    document.getElementById("phoneError").style.display = "none";
+    document.getElementById("emailError").style.display = "none";
+    document.getElementById("cityError").style.display = "none";
+    document.getElementById("addressError").style.display = "none";
+}
+
 function cancelBtn() {
+    clearFormFields();
     modalBuyNow.style.top = "-150%";
     detailBody.style.overflow = "auto";
 }
@@ -417,6 +465,11 @@ function buyNow() {
     const fullPriceElement = document.getElementById("FullPrice");
     const productPrice = document.getElementById("productPrice").textContent;
     const quantity = quantityInput.value || 1;
+
+    // Get the selected color
+    const selectedColor = document.querySelector(".selectColor.selected")?.getAttribute("data-color") || "default";
+    const selectedColorText = document.getElementById("selectedColor");
+    selectedColorText.textContent = selectedColor.charAt(0).toUpperCase() + selectedColor.slice(1);
 
     // Calculate total price
     const totalPrice = parseFloat(productPrice) * parseInt(quantity);
@@ -438,49 +491,6 @@ function buyNow() {
     }
 }
 
-// Update the modal quantity and total price when the input changes
-document.getElementById("quantity").addEventListener("input", function() {
-    const quantityValue = document.getElementById("quantityValue");
-    const itemsTotalPrice = document.getElementById("itemsTotalPrice");
-    const shippingValueElement = document.getElementById("shippingValue");
-    const fullPriceElement = document.getElementById("FullPrice");
-    const productPrice = document.getElementById("productPrice").textContent;
-    const quantity = this.value || 1;
-
-    // Calculate total price
-    const totalPrice = parseFloat(productPrice) * parseInt(quantity);
-    const shippingPrice = parseFloat(shippingValueElement.textContent) || 0;
-    const fullPrice = totalPrice + shippingPrice;
-
-    // Update modal content
-    quantityValue.textContent = quantity;
-    itemsTotalPrice.textContent = `PKR ${totalPrice.toFixed(2)}`;
-    fullPriceElement.textContent = `PKR ${fullPrice.toFixed(2)}`;
-});
-
-// Add event listener to the city input to update shipping value
-document.getElementById("cityInput").addEventListener("input", function() {
-    const shippingValueElement = document.getElementById("shippingValue");
-    const itemsTotalPrice = document.getElementById("itemsTotalPrice");
-    const fullPriceElement = document.getElementById("FullPrice");
-    const city = this.value.trim().toLowerCase();
-
-    let shippingPrice = 0;
-    if (city === "lahore") {
-        shippingPrice = 500;
-    } else {
-        shippingPrice = 1500;
-    }
-
-    // Update shipping value
-    shippingValueElement.textContent = shippingPrice;
-
-    // Recalculate full price
-    const totalPrice = parseFloat(itemsTotalPrice.textContent.replace("PKR ", "")) || 0;
-    const fullPrice = totalPrice + shippingPrice;
-    fullPriceElement.textContent = `PKR ${fullPrice.toFixed(2)}`;
-});
-
 function payNow() {
     // Get all input fields
     const name = document.getElementById("name").value.trim();
@@ -490,6 +500,9 @@ function payNow() {
     const address = document.getElementById("address").value.trim();
     const quantity = document.getElementById("quantity").value.trim();
     const selectedColor = document.querySelector(".selectColor.selected")?.getAttribute("data-color") || "default";
+    const productName = document.getElementById("productName").textContent;
+    const productPrice = document.getElementById("productPrice").textContent;
+    const totalPrice = document.getElementById("FullPrice").textContent;
 
     // Get all error message elements
     const nameError = document.getElementById("nameError");
@@ -547,34 +560,30 @@ function payNow() {
 
     // If all fields are valid, proceed with payment
     if (isValid) {
-        const data = {
-            name,
-            email,
-            phoneNumber,
-            city,
-            address,
-            quantity,
-            color: selectedColor
-        };
+        // Construct the WhatsApp message
+        const message = `New Order Details:\n\n` +
+                        `Name: ${name}\n` +
+                        `Phone Number: ${phoneNumber}\n` +
+                        `Email: ${email}\n` +
+                        `City: ${city}\n` +
+                        `Address: ${address}\n` +
+                        `Product: ${productName}\n` +
+                        `Quantity: ${quantity}\n` +
+                        `Color: ${selectedColor}\n` +
+                        `Total Price: ${totalPrice}`;
 
-        fetch('http://localhost:3000/send-email', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        })
-        .then(response => response.text())
-        .then(result => {
-            console.log(result);
-            alert('Order details sent successfully!');
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Failed to send order details.');
-        });
+        // Encode the message for URL
+        const encodedMessage = encodeURIComponent(message);
+
+        // Your WhatsApp number
+        const whatsappNumber = "923214566117"; // Replace with your WhatsApp number
+
+        // Create the WhatsApp URL
+        const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+
+        // Open WhatsApp in a new tab
+        window.open(whatsappUrl, "_blank");
     }
-
 }
     </script>
     
