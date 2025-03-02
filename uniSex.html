@@ -18,35 +18,20 @@
     <script src="./uniSex.js"></script>
   </head>
   <body>
-    <a href="https://wa.me/923127044201?text=Hi%2C%20I%20want%20to%20place%20an%20order" class="whatsaapIcon" target="_blank">
-      <img src="./images/whatsaap.jpg" alt="whatsaap"/>
-    </a>
-
     <div class="banner">
       <p>Free Delivery Above PKR 3000</p>
-      <div class="socialIconsMain">
-        <a href="#">
-          <img src="./images/facebook.jpg.jpg" alt="facebook"/>
-        </a>
-        <a href="https://www.instagram.com/wristnneck.pk?igsh=OHdhcWNqNnpsOWlj">
-          <img src="./images/instagram.jpg" alt="Instagram"/>
-        </a>
-        <a href="https://www.tiktok.com/@wrist.n.neck?_t=ZS-8uK4n8Vn4ki&_r=1">
-          <img src="./images/tiktok.jpg" alt="tikTok"/>
-        </a>
-      </div>
     </div>
     <nav class="container">
       <div class="navMain">
       <div class="navContainer">
-
+  
    
           <div class="categorySelect">
             <a href="./male.html">Men</a>
             <a href="./female.html">Women</a>
             <a href="./uniSex.html">UniSex</a>
           </div>
- 
+  
         
         <div onclick="openNav()" class="menuContainer">
           <svg
@@ -74,6 +59,27 @@
         </div>
         <a href="./index.html" class="mainLogo">WristnNeck</a>
         <div class="iconContainer">
+          <div class="searchBoxMain">
+            <input type="search" id="searchInput" placeholder="Search"/>
+           
+            <div id="suggestionsBox" class="hidden"></div>
+            <svg id="searchButton"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+                />
+              </svg>
+       
+            </div>
+  
+  
           <a style="display: flex;" class="loginButton" id="profileLink">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="iconNav" id="loginIcon">
               <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
@@ -87,10 +93,28 @@
             <span id="cartCount">0</span>
         </a>
         </div>
-
+  
       </div>
     </div>
     </nav>
+    <div class="searchBoxMain">
+      <input type="search" id="searchInputOutside" placeholder="Search"/>
+      <div id="suggestionsBoxOutside" class="hidden"></div>
+      <svg id="searchButtonOutside"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+          />
+        </svg>
+    </div>
+
 
 
     <div class="categoryMainContainer">
@@ -109,7 +133,6 @@
             PKR <p class="accessoriePrice"></p></span>
           </button>
         </template>
-
 
         <footer>
           <a href="./index.html" class="mainLogo">WristnNeck</a>
@@ -146,7 +169,6 @@
             </a>
           </div>
         </footer>
-        
         <script>
           // Update the cart count when the page loads
           document.addEventListener("DOMContentLoaded", () => {
