@@ -55,6 +55,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const productData = JSON.parse(localStorage.getItem("products")) || [];
     const bothProductsContainer = document.getElementById("bothProducts");
     const productCardTemplate = document.getElementById("productCardTemplate");
+    const searchInput = document.getElementById("searchInput");
+    const suggestionsBox = document.getElementById("suggestionsBox");
+    const searchInputOutside = document.getElementById("searchInputOutside");
+    const suggestionsBoxOutside = document.getElementById("suggestionsBoxOutside");
 
     function displayProducts() {
         bothProductsContainer.innerHTML = "";
@@ -93,6 +97,60 @@ document.addEventListener("DOMContentLoaded", () => {
             bothProductsContainer.innerHTML = `<p>No products available.</p>`;
         }
     }
+
+    function showSuggestions(filteredProducts, suggestionsBox) {
+      suggestionsBox.innerHTML = "";
+      if (filteredProducts.length > 0) {
+          filteredProducts.forEach(product => {
+              const suggestion = document.createElement("div");
+              suggestion.textContent = product.name;
+              suggestion.classList.add("suggestion");
+              suggestion.addEventListener("click", () => {
+                  searchInput.value = product.name;
+                  displayProducts([product]);
+                  suggestionsBox.classList.add("hidden");
+              });
+              suggestionsBox.appendChild(suggestion);
+          });
+          suggestionsBox.classList.remove("hidden");
+      } else {
+          suggestionsBox.classList.add("hidden");
+      }
+  }
+
+  // Event listener for the search input inside the navbar
+  searchInput.addEventListener("input", (e) => {
+      const searchTerm = e.target.value.toLowerCase();
+      console.log("Search Term (inside):", searchTerm); // Debugging
+      if (searchTerm === "") {
+          displayProducts();
+          suggestionsBox.classList.add("hidden");
+      } else {
+          const filteredProducts = productData.filter(product => 
+              product.name.toLowerCase().includes(searchTerm)
+          );
+          console.log("Filtered Products (inside):", filteredProducts); // Debugging
+          displayProducts(filteredProducts);
+          showSuggestions(filteredProducts, suggestionsBox);
+      }
+  });
+
+  // Event listener for the search input outside the navbar
+  searchInputOutside.addEventListener("input", (e) => {
+      const searchTerm = e.target.value.toLowerCase();
+      console.log("Search Term (outside):", searchTerm); // Debugging
+      if (searchTerm === "") {
+          displayProducts();
+          suggestionsBoxOutside.classList.add("hidden");
+      } else {
+          const filteredProducts = productData.filter(product => 
+              product.name.toLowerCase().includes(searchTerm)
+          );
+          console.log("Filtered Products (outside):", filteredProducts); // Debugging
+          displayProducts(filteredProducts);
+          showSuggestions(filteredProducts, suggestionsBoxOutside);
+      }
+  });
 
     displayProducts();
 });

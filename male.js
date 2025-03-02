@@ -51,117 +51,110 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-  document.addEventListener("DOMContentLoaded", () => {
-    const productData = JSON.parse(localStorage.getItem("products")) || [];
-    const boysProductsContainer = document.getElementById("boysProducts");
-    const productCardTemplate = document.getElementById("productCardTemplate");
+document.addEventListener("DOMContentLoaded", () => {
+  const productData = JSON.parse(localStorage.getItem("products")) || [];
+  const boysProductsContainer = document.getElementById("boysProducts");
+  const productCardTemplate = document.getElementById("productCardTemplate");
+  const searchInput = document.getElementById("searchInput");
+  const suggestionsBox = document.getElementById("suggestionsBox");
+  const searchInputOutside = document.getElementById("searchInputOutside");
+  const suggestionsBoxOutside = document.getElementById("suggestionsBoxOutside");
 
-    function displayProducts() {
-        boysProductsContainer.innerHTML = "";
+  function displayProducts(filteredProducts = productData) {
+      boysProductsContainer.innerHTML = "";
 
-        if (productData.length > 0) {
-            productData.forEach((product) => {
-                const { name, price, images, discount, category } = product;
+      if (filteredProducts.length > 0) {
+          filteredProducts.forEach((product) => {
+              const { name, price, images, discount, category } = product;
 
-                // Only display products with category "Male"
-                if (category === "Boys") {
-                    const productCard = productCardTemplate.content.cloneNode(true);
+              // Only display products with category "Male"
+              if (category === "Boys") {
+                  const productCard = productCardTemplate.content.cloneNode(true);
 
-                    productCard.querySelector(".accessorieName").textContent = name;
-                    productCard.querySelector(".accessoriePrice").textContent = price;
-                    productCard.querySelector(".accessorieDiscount").textContent = discount ? `${discount}%` : "";
+                  productCard.querySelector(".accessorieName").textContent = name;
+                  productCard.querySelector(".accessoriePrice").textContent = price;
+                  productCard.querySelector(".accessorieDiscount").textContent = discount ? `${discount}%` : "";
 
-                    const imageContainer = productCard.querySelector(".acessorieImg");
-                    if (images && images.length > 0) {
-                        const img = document.createElement("img");
-                        img.src = images[0];
-                        img.alt = name;
-                        imageContainer.appendChild(img);
-                    }
+                  const imageContainer = productCard.querySelector(".acessorieImg");
+                  if (images && images.length > 0) {
+                      const img = document.createElement("img");
+                      img.src = images[0];
+                      img.alt = name;
+                      imageContainer.appendChild(img);
+                  }
 
-                    const productButton = productCard.querySelector("button");
-                    productButton.addEventListener("click", () => {
-                        localStorage.setItem("selectedProduct", JSON.stringify(product));
-                        window.location.href = "acessorieDetail.html";
-                    });
+                  const productButton = productCard.querySelector("button");
+                  productButton.addEventListener("click", () => {
+                      localStorage.setItem("selectedProduct", JSON.stringify(product));
+                      window.location.href = "acessorieDetail.html";
+                  });
 
-                    // Append the product card to the container
-                    boysProductsContainer.appendChild(productCard);
-                }
-            });
-        } else {
-            boysProductsContainer.innerHTML = `<p>No products available.</p>`;
-        }
-    }
+                  // Append the product card to the container
+                  boysProductsContainer.appendChild(productCard);
+              }
+          });
+      } else {
+          boysProductsContainer.innerHTML = `<p>No products available.</p>`;
+      }
+  }
 
-    displayProducts();
+  function showSuggestions(filteredProducts, suggestionsBox) {
+      suggestionsBox.innerHTML = "";
+      if (filteredProducts.length > 0) {
+          filteredProducts.forEach(product => {
+              const suggestion = document.createElement("div");
+              suggestion.textContent = product.name;
+              suggestion.classList.add("suggestion");
+              suggestion.addEventListener("click", () => {
+                  searchInput.value = product.name;
+                  displayProducts([product]);
+                  suggestionsBox.classList.add("hidden");
+              });
+              suggestionsBox.appendChild(suggestion);
+          });
+          suggestionsBox.classList.remove("hidden");
+      } else {
+          suggestionsBox.classList.add("hidden");
+      }
+  }
+
+  // Event listener for the search input inside the navbar
+  searchInput.addEventListener("input", (e) => {
+      const searchTerm = e.target.value.toLowerCase();
+      console.log("Search Term (inside):", searchTerm); // Debugging
+      if (searchTerm === "") {
+          displayProducts();
+          suggestionsBox.classList.add("hidden");
+      } else {
+          const filteredProducts = productData.filter(product => 
+              product.name.toLowerCase().includes(searchTerm)
+          );
+          console.log("Filtered Products (inside):", filteredProducts); // Debugging
+          displayProducts(filteredProducts);
+          showSuggestions(filteredProducts, suggestionsBox);
+      }
+  });
+
+  // Event listener for the search input outside the navbar
+  searchInputOutside.addEventListener("input", (e) => {
+      const searchTerm = e.target.value.toLowerCase();
+      console.log("Search Term (outside):", searchTerm); // Debugging
+      if (searchTerm === "") {
+          displayProducts();
+          suggestionsBoxOutside.classList.add("hidden");
+      } else {
+          const filteredProducts = productData.filter(product => 
+              product.name.toLowerCase().includes(searchTerm)
+          );
+          console.log("Filtered Products (outside):", filteredProducts); // Debugging
+          displayProducts(filteredProducts);
+          showSuggestions(filteredProducts, suggestionsBoxOutside);
+      }
+  });
+
+  displayProducts();
 });
   
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const searchInput = document.querySelector("input[type='search']");
-    const suggestionsBox = document.getElementById("suggestionsBox");
-    const searchButton = document.getElementById("searchButton");
-  
-    // Load products from localStorage
-    const productData = JSON.parse(localStorage.getItem("products")) || [];
-  
-    // Function to filter products based on search query
-    function filterProducts(query) {
-      if (!query) {
-        suggestionsBox.innerHTML = ""; // Clear when input is empty
-        suggestionsBox.classList.add("hidden");
-        return;
-      }
-  
-      const filteredProducts = productData.filter(product =>
-        product.name.toLowerCase().includes(query.toLowerCase())
-      );
-  
-      // Display results
-      displaySuggestions(filteredProducts);
-    }
-  
-    // Function to display filtered products
-    function displaySuggestions(products) {
-      suggestionsBox.innerHTML = ""; // Clear previous suggestions
-  
-      if (products.length === 0) {
-        suggestionsBox.innerHTML = "<p>No matching products found.</p>";
-      } else {
-        products.forEach(product => {
-          const suggestion = document.createElement("div");
-          suggestion.classList.add("suggestionItem");
-          suggestion.textContent = product.name;
-          suggestion.addEventListener("click", () => {
-            searchInput.value = product.name; // Set input to selected product
-            suggestionsBox.innerHTML = ""; // Clear suggestions
-            suggestionsBox.classList.add("hidden");
-          });
-          suggestionsBox.appendChild(suggestion);
-        });
-      }
-  
-      suggestionsBox.classList.remove("hidden"); // Show suggestions
-    }
-  
-    // Attach event listeners
-    searchInput.addEventListener("input", (e) => {
-      filterProducts(e.target.value);
-    });
-  
-    // Hide suggestions when clicking outside
-    document.addEventListener("click", (e) => {
-      if (!searchInput.contains(e.target) && !suggestionsBox.contains(e.target)) {
-        suggestionsBox.classList.add("hidden");
-      }
-    });
-  
-    // Enable search button click functionality
-    searchButton.addEventListener("click", () => {
-      filterProducts(searchInput.value);
-    });
-  });
   
   const marqueeText = document.querySelector('.marquee-text');
   let position = window.innerWidth;
