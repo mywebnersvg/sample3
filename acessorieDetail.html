@@ -595,31 +595,30 @@ function payNow() {
         isValid = false;
     }
 
-    // If all fields are valid, proceed with payment
+    // If all fields are valid, proceed with sending email
     if (isValid) {
-        // Construct the WhatsApp message
-        const message = `New Order Details:\n\n` +
-                        `Name: ${name}\n` +
-                        `Phone Number: ${phoneNumber}\n` +
-                        `Email: ${email}\n` +
-                        `City: ${city}\n` +
-                        `Address: ${address}\n` +
-                        `Product: ${productName}\n` +
-                        `Quantity: ${quantity}\n` +
-                        `Color: ${selectedColor}\n` +
-                        `Total Price: ${totalPrice}`;
+        // Construct the email subject and body
+        const subject = `New Order: ${productName}`;
+        const body = `New Order Details:\n\n` +
+                      `Name: ${name}\n` +
+                      `Phone Number: ${phoneNumber}\n` +
+                      `Email: ${email}\n` +
+                      `City: ${city}\n` +
+                      `Address: ${address}\n` +
+                      `Product: ${productName}\n` +
+                      `Quantity: ${quantity}\n` +
+                      `Color: ${selectedColor}\n` +
+                      `Total Price: ${totalPrice}`;
 
-        // Encode the message for URL
-        const encodedMessage = encodeURIComponent(message);
+        // Encode the subject and body for URL
+        const encodedSubject = encodeURIComponent(subject);
+        const encodedBody = encodeURIComponent(body);
 
-        // Your WhatsApp number
-        const whatsappNumber = "923127044201"; // Replace with your WhatsApp number
+        // Create the mailto URL
+        const mailtoUrl = `mailto:anusn2914@gmail.com?subject=${encodedSubject}&body=${encodedBody}`;
 
-        // Create the WhatsApp URL
-        const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
-
-        // Open WhatsApp in a new tab
-        window.open(whatsappUrl, "_blank");
+        // Open the default email client
+        window.location.href = mailtoUrl;
     }
 }
     </script>
