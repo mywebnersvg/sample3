@@ -748,11 +748,6 @@ body {
 }
 
 
-.categoryHeading {
-  font-size: 50px;
-  margin-bottom: 40px;
-  color: white;
-}
 .banner {
   background-color: white;
   text-align: center;
@@ -1294,16 +1289,28 @@ button {
 }
 
 .categoryHeading {
-  font-size: 40px;
+  font-size: 60px;
   font-weight: 700;
   color: white;
-  text-align: center;
+  text-align: left;
+  padding-left: 40px;
+  padding-right: 40px;
   margin-top: 40px;
+  border-bottom: 1px solid #FFD700;
+  margin-bottom: 0;
+  padding-bottom: 20px;
   @media (max-width:768px) {
-    font-size: 24px;
+    font-size: 40px;
     margin-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
   }
 }
+.showingProductsMain {
+  border-bottom: 1px solid #FFD700;
+  padding-bottom: 20px;
+}
+
 .categoryMainContainer {
   padding: 0 40px;
   margin-top: 30px;
@@ -1330,13 +1337,12 @@ button {
   border-radius: 12px;
   margin: 0 auto;
   display: flex;
-  margin-top: 20px;
-  margin-bottom: 40px;
+ margin: 40px auto;
   border: 1px solid #FFD700;
   transition: all 0.5s ease;
   outline: none;
   @media (max-width:768px) {
-    margin-bottom: 30px;
+    margin: 30px auto;
   }
 }
 .vieMoreBtn:hover {
@@ -1376,7 +1382,7 @@ button {
   color: black;
   white-space: nowrap; 
   margin: 0;
-  animation: moveText 3s linear infinite; 
+  animation: moveText 12s linear infinite; 
   @media (max-width:768px) {
     font-size: 24px;
   }
@@ -1387,7 +1393,7 @@ button {
     transform: translateX(0%);
   }
   100% {
-    transform: translateX(-250%);
+    transform: translateX(-350%);
   }
 }
 .menuContainer {
@@ -1420,8 +1426,8 @@ button {
   height: 20px;
 }
 .whatsaapIcon {
-  width: 40px;
-  height: 40px;
+  width: 80px;
+  height: 80px;
   position: fixed;
   bottom: 40px;
   right: 40px;
@@ -1521,4 +1527,155 @@ footer {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+.aboutUsContainer {
+  padding: 40px;
+  border-bottom: 1px solid black;
+  @media (max-width:768px) {
+    padding: 24px;
+  }
+}
+.aboutUsContainer h2 {
+  font-size: 40px;
+  font-weight: 600;
+  color: black;
+  font-style: italic;
+  text-transform: uppercase;
+  margin-top: 0;
+  margin-bottom: 14px;
+  text-align: center;
+  @media (max-width:768px) {
+    font-size: 24px;
+  }
+}
+.aboutUsContainer p {
+  font-size: 20px;
+  font-weight: 400;
+  color: black;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+.aboutUsContainer button {
+  background-color: black;
+  margin: 0 auto;
+  margin-top: 20px;
+  padding: 14px 20px;
+  padding-top: 16px;
+  color: white;
+  font-size: 18px;
+  font-weight: 400;
+  border: none;
+  outline: none;
+  display: flex;
+
+}
+.aboutServicesContainer {
+  display: flex;
+  align-items: start;
+  gap: 20px;
+  justify-content: center;
+  margin: 0 auto;
+  width: 100%;
+  margin-top: 40px;
+  max-width: 1200px;
+  border-bottom: 1px solid black;
+  padding-bottom: 40px;
+  @media (max-width:960px) {
+    flex-wrap: wrap;
+  }
+  @media (max-width:768px) {
+   flex-direction: column;
+   max-width: 500px;
+   padding-bottom: 20px;
+  }
+}
+.aboutServiceBlock {
+  width: 33.33%;
+  @media (max-width:768px) {
+    width: 100%;
+  }
+
+}
+.aboutServiceBlock img {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 180px;
+  display: flex;
+}
+.aboutServiceBlock .aboutServiceData {
+  padding: 25px 15px;
+}
+.aboutServiceBlock .aboutServiceData h2 {
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.aboutServiceBlock .aboutServiceData p {
+  font-size: 18px;
+  font-weight: 400;
+  margin: 0;
+  text-align: center;
+}
+.aboutMain {
+  background-color: white;
+}
+.customerReviewsMain {
+  padding: 0;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1200px;
+  margin-top: 40px;
+}
+.customerReviewsMain h3 {
+  font-size: 40px;
+  font-weight: 600;
+  color: black;
+  text-align: left;
+  margin: 0;
+  margin-bottom: 20px;
+  padding: 0 40px;
+  @media (max-width:768px) {
+    padding: 0 24px;
+    font-size: 24px;
+  }
+}
+.customerReviewsBlockMain {
+  display: flex;
+  align-items: start;
+  gap: 20px;
+  justify-content: center;
+  margin: 0 auto;
+  width: 100%;
+  @media (max-width:960px) {
+    flex-wrap: wrap;
+  }
+  @media (max-width:768px) {
+   flex-direction: column;
+   max-width: 500px;
+  }
+}
+.customerReviewsBlock {
+  width: 33.33%;
+  @media (max-width:768px) {
+    width: 100%;
+  }                
+}
+.customerReviewsBlock h2 {
+  font-size: 20px;
+  color: black;
+  text-align: center;
+  margin: 0;
+  margin-bottom: 14px;
+}
+.customerReviewsBlock p {
+  font-size: 18px;
+  font-weight: 500;
+  color: black;
+  text-align: center;
+  margin: 0;
+  padding: 15px;
 }
