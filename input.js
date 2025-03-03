@@ -62,19 +62,25 @@ document.addEventListener("DOMContentLoaded", () => {
     boysProductsContainer.innerHTML = "";
     girlsProductsContainer.innerHTML = "";
     bothProductsContainer.innerHTML = "";
+  
+    // Sort products by timestamp in descending order (latest first)
 
-    if (productData.length > 0) {
-      productData.forEach((product, index) => {
+  
+    // Reverse the sortedProducts array to display in reverse order
+    const reversedProducts = productData.reverse();
+  
+    if (reversedProducts.length > 0) {
+      reversedProducts.forEach((product, index) => {
         const { name, price, images, discount, category, description } = product;
         const productCard = productCardTemplate.content.cloneNode(true);
-
+  
         // Populate the product card
         productCard.querySelector(".product-name").textContent = name;
         productCard.querySelector(".product-price").textContent = price;
         const discountElement = productCard.querySelector(".product-discount");
         discountElement.textContent = discount ? `${discount}%` : "No discount";
         productCard.querySelector(".product-description").textContent = description || "No description available";
-
+  
         const imageContainer = productCard.querySelector(".image-container");
         images.forEach((image) => {
           const img = document.createElement("img");
@@ -82,7 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
           img.alt = "Product Image";
           imageContainer.appendChild(img);
         });
-
+  
         // Add delete functionality
         const deleteButton = productCard.querySelector("svg");
         deleteButton.addEventListener("click", () => {
@@ -92,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
           localStorage.setItem("products", JSON.stringify(updatedProducts));
           displayProducts(); // Refresh the display
         });
-
+  
         // Append the product card to the correct container based on category
         if (category === "Boys") {
           boysProductsContainer.appendChild(productCard);

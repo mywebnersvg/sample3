@@ -62,38 +62,58 @@ window.onclick = function (event) {
         girlsProductsContainer.innerHTML = "";
         bothProductsContainer.innerHTML = "";
 
-        if (productData.length > 0) {
+        // Reverse the product array to show the latest products first
+        const reversedProducts = productData.reverse();
 
-        productData.forEach((product) => {
-            const { name, price, images, discount, category } = product;
-            const productCard = productCardTemplate.content.cloneNode(true);
+        // Counters to keep track of the number of products displayed for each category
+        let boysCount = 0;
+        let girlsCount = 0;
+        let bothCount = 0;
 
-            productCard.querySelector(".accessorieName").textContent = name;
-            productCard.querySelector(".accessoriePrice").textContent = price;
-            productCard.querySelector(".accessorieDiscount").textContent = discount ? `${discount}%` : "";
+        if (reversedProducts.length > 0) {
+            reversedProducts.forEach((product) => {
+                const { name, price, images, discount, category } = product;
 
-            const imageContainer = productCard.querySelector(".acessorieImg");
-            if (images && images.length > 0) {
-                const img = document.createElement("img");
-                img.src = images[0];
-                img.alt = name;
-                imageContainer.appendChild(img);
-            }
-            const productButton = productCard.querySelector("button");
-            productButton.addEventListener("click", () => {
-              localStorage.setItem("selectedProduct", JSON.stringify(product));
-              window.location.href = "acessorieDetail.html";
+                // Check if the limit for the category has been reached
+                if ((category === "Boys" && boysCount >= 4) ||
+                    (category === "Girls" && girlsCount >= 4) ||
+                    (category === "Both" && bothCount >= 4)) {
+                    return; // Skip this product if the limit is reached
+                }
+
+                const productCard = productCardTemplate.content.cloneNode(true);
+
+                productCard.querySelector(".accessorieName").textContent = name;
+                productCard.querySelector(".accessoriePrice").textContent = price;
+                productCard.querySelector(".accessorieDiscount").textContent = discount ? `${discount}%` : "";
+
+                const imageContainer = productCard.querySelector(".acessorieImg");
+                if (images && images.length > 0) {
+                    const img = document.createElement("img");
+                    img.src = images[0];
+                    img.alt = name;
+                    imageContainer.appendChild(img);
+                }
+
+                const productButton = productCard.querySelector("button");
+                productButton.addEventListener("click", () => {
+                    localStorage.setItem("selectedProduct", JSON.stringify(product));
+                    window.location.href = "acessorieDetail.html";
+                });
+
+                // Append the product card to the appropriate container and increment the counter
+                if (category === "Boys" && boysCount < 4) {
+                    boysProductsContainer.appendChild(productCard);
+                    boysCount++;
+                } else if (category === "Girls" && girlsCount < 4) {
+                    girlsProductsContainer.appendChild(productCard);
+                    girlsCount++;
+                } else if (category === "Both" && bothCount < 4) {
+                    bothProductsContainer.appendChild(productCard);
+                    bothCount++;
+                }
             });
-    
-            if (category === "Boys") {
-                boysProductsContainer.appendChild(productCard);
-            } else if (category === "Girls") {
-                girlsProductsContainer.appendChild(productCard);
-            } else if (category === "Both") {
-                bothProductsContainer.appendChild(productCard);
-            }
-        });
-    }
+        }
     }
 
     displayProducts();
