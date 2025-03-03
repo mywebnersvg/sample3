@@ -40,7 +40,7 @@
       </a>
   
       <div class="banner">
-        <p>Free Delivery Above PKR 3000</p>
+        <p>Enjoy! Free Shipping - Easy Return & Refund</p>
         <div class="socialIconsMain">
           <a href="#">
             <img src="./images/facebook.jpg.jpg" alt="facebook"/>
@@ -243,7 +243,14 @@
         </div>
     </div>
 
-    <!-- Swiper.js Script -->
+<div id="waitingPopup" class="modalMainContainer" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 1000; justify-content: center; align-items: center;">
+  <div style="background-color: white; padding: 20px; border-radius: 10px; text-align: center;">
+      <p>Processing your order...</p>
+      <div class="spinner"></div>
+  </div>
+</div>
+
+ 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <script>
@@ -528,7 +535,11 @@ function buyNow() {
     }
 }
 
-function payNow() {
+async function payNow() {
+    // Show waiting pop-up
+    const waitingPopup = document.getElementById("waitingPopup");
+    waitingPopup.style.display = "flex";
+
     // Get all input fields
     const name = document.getElementById("name").value.trim();
     const phoneNumber = document.getElementById("phoneNumber").value.trim();
@@ -540,87 +551,101 @@ function payNow() {
     const productName = document.getElementById("productName").textContent;
     const productPrice = document.getElementById("productPrice").textContent;
     const totalPrice = document.getElementById("FullPrice").textContent;
+    const productImages = Array.from(document.querySelectorAll(".swiper-slide img")).map(img => img.src);
 
-    // Get all error message elements
-    const nameError = document.getElementById("nameError");
-    const phoneError = document.getElementById("phoneError");
-    const emailError = document.getElementById("emailError");
-    const cityError = document.getElementById("cityError");
-    const addressError = document.getElementById("addressError");
-
-    // Reset error messages
-    nameError.style.display = "none";
-    phoneError.style.display = "none";
-    emailError.style.display = "none";
-    cityError.style.display = "none";
-    addressError.style.display = "none";
-
+    // Validate inputs
     let isValid = true;
-
-    // Validate name
-    if (!name) {
-        nameError.style.display = "block";
+    if (!name || !phoneNumber || !email || !city || !address) {
         isValid = false;
+        alert('Please fill in all fields.');
+        waitingPopup.style.display = "none"; // Hide waiting pop-up
+        return;
     }
 
-    // Validate phone number
-    if (!phoneNumber) {
-        phoneError.style.display = "block";
-        isValid = false;
-    } else if (!/^\d{10,}$/.test(phoneNumber)) { // Basic phone number validation
-        phoneError.textContent = "Invalid phone number";
-        phoneError.style.display = "block";
-        isValid = false;
-    }
-
-    // Validate email
-    if (!email) {
-        emailError.style.display = "block";
-        isValid = false;
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { // Basic email validation
-        emailError.textContent = "Invalid email address";
-        emailError.style.display = "block";
-        isValid = false;
-    }
-
-    // Validate city
-    if (!city) {
-        cityError.style.display = "block";
-        isValid = false;
-    }
-
-    // Validate address
-    if (!address) {
-        addressError.style.display = "block";
-        isValid = false;
-    }
-
-    // If all fields are valid, proceed with sending email
     if (isValid) {
-        // Construct the email subject and body
-        const subject = `New Order: ${productName}`;
-        const body = `New Order Details:\n\n` +
-                      `Name: ${name}\n` +
-                      `Phone Number: ${phoneNumber}\n` +
-                      `Email: ${email}\n` +
-                      `City: ${city}\n` +
-                      `Address: ${address}\n` +
-                      `Product: ${productName}\n` +
-                      `Quantity: ${quantity}\n` +
-                      `Color: ${selectedColor}\n` +
-                      `Total Price: ${totalPrice}`;
+        const orderDetails = {
+            name,
+            phoneNumber,
+            email,
+            city,
+            address,
+            productName,
+            quantity,
+            selectedColor,
+            totalPrice,
+            productImages
+        };
 
-        // Encode the subject and body for URL
-        const encodedSubject = encodeURIComponent(subject);
-        const encodedBody = encodeURIComponent(body);
+        try {
+            const response = await fetch('http://localhost:4000/send-email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(orderDetails)
+            });
 
-        // Create the mailto URL
-        const mailtoUrl = `mailto:anusn2914@gmail.com?subject=${encodedSubject}&body=${encodedBody}`;
+            const result = await response.json();
+            if (result.success) {
+                // Store order details in localStorage
+                let orders = JSON.parse(localStorage.getItem("orders")) || [];
+                orders.push(orderDetails);
+                localStorage.setItem("orders", JSON.stringify(orders));
 
-        // Open the default email client
-        window.location.href = mailtoUrl;
+                // Hide waiting pop-up
+                waitingPopup.style.display = "none";
+
+                // Close the modal
+                modalBuyNow.style.top = "-150%";
+                detailBody.style.overflow = "auto";
+
+                // Clear all fields
+                clearFormFields();
+
+                // Show success message
+                alert('Order placed successfully! An email has been sent.');
+            } else {
+                // Hide waiting pop-up
+                waitingPopup.style.display = "none";
+
+                // Show error message
+                alert('Failed to send email. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+
+            // Hide waiting pop-up
+            waitingPopup.style.display = "none";
+
+            // Show error message
+            alert('An error occurred. Please try again.');
+        }
     }
 }
+
+function clearFormFields() {
+    // Clear input fields
+    document.getElementById("name").value = "";
+    document.getElementById("phoneNumber").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("cityInput").value = "";
+    document.getElementById("address").value = "";
+    document.getElementById("quantity").value = "1";
+
+    // Clear selected color
+    const colorOptions = document.querySelectorAll(".selectColor");
+    colorOptions.forEach(color => color.classList.remove("selected"));
+    document.getElementById("selectedColor").textContent = "";
+
+    // Hide error messages
+    document.getElementById("nameError").style.display = "none";
+    document.getElementById("phoneError").style.display = "none";
+    document.getElementById("emailError").style.display = "none";
+    document.getElementById("cityError").style.display = "none";
+    document.getElementById("addressError").style.display = "none";
+}
+
+
     </script>
     
 </body>

@@ -27,7 +27,6 @@ function closeNav() {
   document.getElementById("mainHome").style.zIndex = "auto";
 }
 
-
 document.addEventListener("DOMContentLoaded", () => {
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
 
@@ -50,8 +49,8 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
     }
   }
-});
-document.addEventListener("DOMContentLoaded", () => {
+
+  // Load and display products
   const productData = JSON.parse(localStorage.getItem("products")) || [];
   const boysProductsContainer = document.getElementById("boysProducts");
   const girlsProductsContainer = document.getElementById("girlsProducts");
@@ -113,11 +112,75 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Initial display of products
   displayProducts();
+
+  // Load and display orders
+  const orders = JSON.parse(localStorage.getItem("orders")) || [];
+  const ordersContainer = document.createElement("div");
+  ordersContainer.id = "ordersContainer";
+  document.body.appendChild(ordersContainer);
+
+  function displayOrders() {
+    ordersContainer.innerHTML = ""; // Clear previous orders
+
+    if (orders.length > 0) {
+      orders.forEach((order, index) => {
+        const orderCard = document.createElement("div");
+        orderCard.className = "order-card";
+        orderCard.innerHTML = `
+          <h2>Order #${index + 1}</h2>
+          <p><strong>Name:</strong> ${order.name}</p>
+          <p><strong>Phone:</strong> ${order.phoneNumber}</p>
+          <p><strong>Email:</strong> ${order.email}</p>
+          <p><strong>City:</strong> ${order.city}</p>
+          <p><strong>Address:</strong> ${order.address}</p>
+          <p><strong>Product:</strong> ${order.productName}</p>
+          <p><strong>Quantity:</strong> ${order.quantity}</p>
+          <p><strong>Color:</strong> ${order.selectedColor}</p>
+          <p><strong>Total Price:</strong> ${order.totalPrice}</p>
+          <div class="order-images"></div>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="delete-icon" style="width: 24px; height: 24px; cursor: pointer;">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+          </svg>
+        `;
+
+        const imagesContainer = orderCard.querySelector(".order-images");
+        order.productImages.forEach((image) => {
+          const img = document.createElement("img");
+          img.src = image;
+          img.alt = "Order Image";
+          img.style.width = "100px"; // Adjust as needed
+          imagesContainer.appendChild(img);
+        });
+
+        // Add delete functionality
+        const deleteIcon = orderCard.querySelector(".delete-icon");
+        deleteIcon.addEventListener("click", () => {
+          deleteOrder(index);
+        });
+
+        ordersContainer.appendChild(orderCard);
+      });
+    } else {
+      ordersContainer.innerHTML = `<p>No orders found.</p>`;
+    }
+  }
+
+  function deleteOrder(index) {
+    // Remove the order at the specified index
+    orders.splice(index, 1);
+
+    // Update localStorage with the new orders array
+    localStorage.setItem("orders", JSON.stringify(orders));
+
+    // Refresh the orders display
+    displayOrders();
+  }
+
+  // Initial display of orders
+  displayOrders();
 });
 
-
-
-
+// Search functionality
 document.addEventListener("DOMContentLoaded", () => {
   const searchInput = document.querySelector("input[type='search']");
   const suggestionsBox = document.getElementById("suggestionsBox");
@@ -183,6 +246,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+// Marquee animation
 const marqueeText = document.querySelector('.marquee-text');
 let position = window.innerWidth;
 
@@ -197,7 +261,7 @@ function animateMarquee() {
 
 animateMarquee();
 
-
+// Cart count functionality
 document.addEventListener("DOMContentLoaded", () => {
   // Function to update the cart count
   function updateCartCount() {
