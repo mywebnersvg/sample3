@@ -42,7 +42,7 @@ body {
   z-index: 1;
   top: 115px;
   left: -20%;
-  background-color: #FFD700;
+  background-color: white;
   overflow-x: hidden;
   transition: 0.5s;
   border-radius: 12px;
@@ -468,7 +468,7 @@ body {
   }
   
   .product-card {
-    border: 1px solid #FFD700;
+    border: 1px solid white;
     border-radius: 12px;
     padding: 12px;
     background-color: black;
@@ -479,7 +479,7 @@ body {
     gap: 12px;
   }
   .labelProduct {
-    color: #FFD700;
+    color: white;
     font-size: 20px;
     font-weight: 400;
     line-height: normal;
@@ -518,8 +518,8 @@ body {
 
   .uploadProduct a {
     padding: 10px 20px;
-    background: #FFD700;
-    border: 1px solid #FFD700;
+    background: white;
+    border: 1px solid white;
     cursor: pointer;
     font-size: 20px;
     border-radius: 12px;
@@ -535,7 +535,7 @@ body {
     background-color: transparent;
   }
   .uploadProduct:hover a {
-    color: #FFD700;
+    color: white;
   }
   .loginButton {
     display: flex;
@@ -615,7 +615,7 @@ body {
     background-color: black;
   }
   .product-discount-price {
-    color: #FFD700; /* Gold color for discount price */
+    color: white; /* Gold color for discount price */
     font-weight: bold;
   }
   .iconContainer .searchBoxMain {
@@ -626,7 +626,7 @@ body {
   }
   .searchBoxMain {
     justify-content: space-between;
-    border: 1px solid #FFD700;
+    border: 1px solid white;
     border-radius: 12px;
     font-size: 16px;
     color: white;
@@ -663,7 +663,7 @@ body {
   height: 20px;
 }
 .searchModal {
-  background-color: #FFD700;
+  background-color: white;
   padding: 0px;
   position: absolute;
   width: 100%;
@@ -704,7 +704,7 @@ body {
 
 #suggestionsBox {
   position: absolute;
-  border: 1px solid #FFD700;
+  border: 1px solid white;
   max-height: 200px;
   overflow-y: auto;
   background: transparent;
@@ -718,10 +718,10 @@ body {
 }
 #suggestionsBoxOutside {
   position: absolute;
-  border: 1px solid #FFD700;
+  border: 1px solid white;
   max-height: 200px;
   overflow-y: auto;
-  background: #FFD700;
+  background: white;
   left: 0;
   top: 120%;
   border-radius: 12px;
@@ -743,7 +743,7 @@ body {
 }
 
 .suggestionItem:hover {
-  background-color: #ffd7005c;
+  background-color: white5c;
 }
 
 
@@ -837,9 +837,9 @@ body {
   font-size: 16px;
   font-weight: 500;
   color: black;
-  background-color: #FFD700;
+  background-color: white;
   transition: all 0.5s ease;
-  border: 1px solid #FFD700;
+  border: 1px solid white;
   margin-top: 20px;
   padding: 12px 20px;
   cursor: pointer;
@@ -914,7 +914,7 @@ position: absolute;
 bottom: 20px;
 display: flex;
 gap: 4px;
-background-color: #FFD700;
+background-color: white;
 padding: 12px;
 border-top-right-radius: 60px;
 border-bottom-right-radius: 60px;
@@ -964,9 +964,9 @@ font-size: 18px;
 }
 
 .backHomeButton {
-  background-color: #FFD700;
+  background-color: white;
   padding: 14px 20px;
-  border: 1px solid #FFD700;
+  border: 1px solid white;
   font-size: 20px;
   font-weight: 400;
   color: black;
@@ -975,7 +975,7 @@ font-size: 18px;
 }
 .backHomeButton:hover {
   background-color: transparent;
-  color: #FFD700;
+  color: white;
 }
 .accessorieDetailContainer .swiper {
   width: 50%;
@@ -995,16 +995,16 @@ font-size: 18px;
   }
 }
 .swiper-button-next, .swiper-button-prev {
-  color: #FFD700 !important;
+  color: white !important;
   cursor: pointer;
   bottom: 10px;
   top: auto !important;
 }
 .swiper-pagination-bullet-active {
-  background-color: #FFD700 !important;
+  background-color: white !important;
 }
 .inputType {
-  border: 1px solid #FFD700;
+  border: 1px solid white;
   border-radius: 12px;
   background-color: transparent;
   margin-top: 10px;
@@ -1024,7 +1024,7 @@ font-size: 18px;
   align-items: center;
 }
 .goldenColor {
-  background-color: #FFD700;
+  background-color: white;
 }
 .blackColor {
   background-color: #000;
@@ -1045,14 +1045,14 @@ font-size: 18px;
 }
 .selectColorContainer label {
   font-size: 24px;
-  color: #FFD700;
+  color: white;
 }
 .selected {
   border: 2px solid red; /* Highlight the selected color */
 }
 .buyNowBtn {
-  background-color: #FFD700;
-  border: 1px solid #FFD700;
+  background-color: white;
+  border: 1px solid white;
   padding: 20px 12px;
   width: 100%;
   font-size: 20px;
@@ -1064,7 +1064,7 @@ font-size: 18px;
 }
 .buyNowBtn:hover {
   background-color: transparent;
-  color: #FFD700;
+  color: white;
 }
 .payNowBtn {
   background-color: black;
@@ -1073,7 +1073,7 @@ font-size: 18px;
   width: 100%;
   font-size: 20px;
   font-weight: 400;
-  color: #FFD700;
+  color: white;
   transition: all 0.5s ease;
   border-radius: 40px;
   margin-top: 24px;
@@ -1081,18 +1081,18 @@ font-size: 18px;
 }
 .addToCart {
   background-color: transparent;
-  border: 1px solid #FFD700;
+  border: 1px solid white;
   padding: 20px 12px;
   width: 100%;
   font-size: 20px;
   font-weight: 400;
-  color: #FFD700;
+  color: white;
   transition: all 0.5s ease;
   border-radius: 40px;
   margin-top: 24px;
 }
 .addToCart:hover {
-  background-color: #FFD700;
+  background-color: white;
   color: black;
 }
 .cartLink {
@@ -1115,7 +1115,7 @@ font-size: 18px;
 .detailLabel {
   font-size: 24px;
     font-weight: 500;
-    color: #FFD700;
+    color: white;
     margin: 0;
     margin-top: 20px;
 }
@@ -1146,7 +1146,7 @@ font-size: 18px;
   gap: 20px;
 }
 .paymentMethodContainer button {
-  border: 1px solid #FFD700;
+  border: 1px solid white;
   border-radius: 12px;
   width: 100%;
   padding:14px 20px;
@@ -1189,7 +1189,7 @@ button {
   position: relative;
   margin: 0 auto;
   border-radius: 12px;
-  background-color: #FFD700;
+  background-color: white;
   @media (max-width:768px) {
       padding: 20px;
       height: 90%;
@@ -1295,7 +1295,7 @@ button {
   padding-left: 40px;
   padding-right: 40px;
   margin-top: 40px;
-  border-bottom: 1px solid #FFD700;
+  border-bottom: 1px solid white;
   margin-bottom: 0;
   padding-bottom: 20px;
   @media (max-width:768px) {
@@ -1306,7 +1306,7 @@ button {
   }
 }
 .showingProductsMain {
-  border-bottom: 1px solid #FFD700;
+  border-bottom: 1px solid white;
   padding-bottom: 20px;
 }
 
@@ -1331,13 +1331,13 @@ button {
   font-size: 18px;
   font-weight: 400;
   color: #000;
-  background-color: #FFD700;
+  background-color: white;
   padding: 10px 16px;
   border-radius: 12px;
   margin: 0 auto;
   display: flex;
  margin: 40px auto;
-  border: 1px solid #FFD700;
+  border: 1px solid white;
   transition: all 0.5s ease;
   outline: none;
   @media (max-width:768px) {
@@ -1346,7 +1346,7 @@ button {
 }
 .vieMoreBtn:hover {
   background-color: transparent;
-  color: #FFD700;
+  color: white;
 }
 .categorySelect {
   display: flex;
@@ -1366,7 +1366,7 @@ button {
 }
 .bannerContainer {
   position: relative;
-  background-color: #FFD700;
+  background-color: white;
   padding: 12px 0;
   display: flex;
   align-items: center;
@@ -1376,14 +1376,14 @@ button {
 }
 
 .bannerContainer p {
-  font-size: 32px;
+  font-size: 24px;
   font-weight: 700;
   color: black;
   white-space: nowrap; 
   margin: 0;
   animation: moveText 12s linear infinite; 
   @media (max-width:768px) {
-    font-size: 24px;
+    font-size: 18px;
   }
 }
 
@@ -1497,10 +1497,10 @@ footer {
   background-color: transparent;
 }
 .suggestionsBox:hover {
-  background-color: #FFD700;
+  background-color: white;
 }
 .order-card h2 {
-  color: #FFD700;
+  color: white;
 }
 .order-card p {
   margin:0 ;
@@ -1513,7 +1513,7 @@ footer {
   flex-wrap: wrap;
 }
 .order-card {
-  border: 1px solid #FFD700;
+  border: 1px solid white;
   padding: 10px;
   border-radius: 20px;
 }
