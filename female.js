@@ -13,8 +13,8 @@ window.onclick = function (event) {
 
 // Open and Close Navigation
 function openNav() {
-  document.getElementById("mySidenav").style.width = "250px";
-  document.getElementById("mySidenav").style.left = "40px";
+  document.getElementById("mySidenav").style.width = "195px";
+  document.getElementById("mySidenav").style.left = "16px";
 }
 
 function closeNav() {

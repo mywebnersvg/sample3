@@ -193,6 +193,20 @@
   </div>
 </div> -->
 
+<script>
+  // Update the cart count when the page loads
+  document.addEventListener("DOMContentLoaded", () => {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const cartCountElement = document.getElementById("cartCount");
+
+    // Calculate the total number of items in the cart
+    const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+
+    // Update the cart count
+    cartCountElement.textContent = totalItems;
+  });
+</script>
+
 <script src="./allAcessories.js"></script>
 </body>
 </html>

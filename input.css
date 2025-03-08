@@ -11,9 +11,10 @@ body {
 }
 .navMain {
   background-color: black;
-  position: sticky;
+  position: fixed;
   margin-top: 20px;
-  width: 100%;
+  width: 95%;
+  z-index: 10;
   border-radius: 10px;
   padding: 0;
   color: #FFFFFF;
@@ -215,12 +216,31 @@ body {
         width: calc(100% - 20%);
     }
   }
+
+  a {
+    text-decoration: none;
+  }
+
+  .clearfix {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+  }
+
+  .clearfix button {
+    border: 1px solid black;
+    padding: 12px 20px;
+    font-size: 20px;
+    outline: none;
+    border-radius: 12px;
+  }
   
   /* The Close Button (x) */
   .modal .close {
     position: absolute;
     right: 25px;
-    top: 0;
+    top: -24px;
     color: #000;
     font-size: 35px;
     font-weight: bold;
@@ -298,6 +318,16 @@ body {
     padding: 0px;
   }
   .modal2 input[type=text], input[type=password] {
+    width: 100%;
+    padding: 15px 20px;
+    margin: 17px 0;
+    display: inline-block;
+    border: 1px solid black;
+    box-sizing: border-box;
+    border-radius: 35px;
+    font-size: 16px;
+  }
+  .formContainer input {
     width: 100%;
     padding: 15px 20px;
     margin: 17px 0;
@@ -552,11 +582,25 @@ body {
   .loginButton svg:hover {
     border-bottom: none !important;
   }
-  .mainLogo {
+  .navContainer .mainLogo {
     font-size: 30px;
     font-weight: 700;
     font-family: "Roboto", sans-serif;
     color: white;
+    text-decoration: none;
+    cursor: pointer;
+    text-align: center;
+    width: 33%;
+    @media (max-width:768px) {
+      width: auto;
+      font-size: 24px;
+    }
+  }
+  .mainLogo {
+    font-size: 30px;
+    font-weight: 700;
+    font-family: "Roboto", sans-serif;
+    color: black;
     text-decoration: none;
     cursor: pointer;
     text-align: center;
@@ -760,9 +804,8 @@ body {
   position: relative;
   animation: bannerText 0.8s ease alternate;
   margin: 0;
-  @media (max-width:768px) {
-    text-align: left;
-  }
+
+    text-align: center;
 }
 @keyframes bannerText {
   0% {
@@ -775,7 +818,7 @@ body {
 
 .mainHomeContainer {
   display: flex;
-  margin-top: 20px;
+  margin-top: 115px;
   position: relative;
 }
 .homeTextContainer {
@@ -788,7 +831,7 @@ body {
 .mainHeading {
   font-size: 60px;
   padding: 0 20px;
-  font-weight: 400;
+  font-weight: 600;
   color: black;
   font-family: "Abril Fatface", serif;
   margin: 0;
@@ -810,7 +853,7 @@ body {
 
  .containerHomeMainImages h3 {
   font-size: 24px;
-  font-weight: 400;
+  font-weight: 600;
   color: black;
   margin: 0px;
   @media (min-width:768px) and (max-width: 1024px) {
@@ -987,6 +1030,7 @@ body {
 }
 .accessorieDetailPageContainer {
   padding: 60px 40px;
+  margin-top: 60px;
   @media (min-width:768px) and (max-width:1024px) {
     padding: 40px;
   }
@@ -1035,6 +1079,7 @@ body {
 .selectColor {
   width: 20px;
   height: 20px;
+  border: 1px solid black;
 }
 .selectColorContainer{
   display: flex;
@@ -1312,17 +1357,17 @@ button {
 
 .categoryMainContainer {
   padding: 0 40px;
-  margin-top: 30px;
+  margin-top: 127px;
   @media (max-width:768px) {
     padding: 0 20px;
-    margin-top: 20px;
+    margin-top: 50px;
   }
 }
 .categoryMainContainer h3 {
   font-size: 40px;
   font-weight: 600;
   color: white;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   @media (max-width:768px) {
     font-size: 28px;
   }
@@ -1444,9 +1489,10 @@ button {
   cursor: pointer;
 }
 footer {
-  background-color: #dddcdc8c;
+  background-color: white;
   padding: 20px 40px;
-  margin-top: 40px;
+  margin-top: 0px;
+  border-top: 1px solid black;
   @media (max-width:768px) {
     padding: 20px;
   }
