@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
         productCard.querySelector(".product-name").textContent = name;
         productCard.querySelector(".product-price").textContent = price;
         const discountElement = productCard.querySelector(".product-discount");
-        discountElement.textContent = discount ? `${discount}%` : "No discount";
+        discountElement.textContent = discount ? `${discount}%` : "No";
         productCard.querySelector(".product-description").textContent = description || "No description available";
   
         const imageContainer = productCard.querySelector(".image-container");

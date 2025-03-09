@@ -59,10 +59,24 @@ document.addEventListener("DOMContentLoaded", () => {
   const searchInputOutside = document.getElementById("searchInputOutside");
   const suggestionsBoxOutside = document.getElementById("suggestionsBoxOutside");
 
+  const productsPerPage = 15; // Number of products to display per page
+  let currentPage = 1; // Current page number
+
+  const prevPageButton = document.getElementById("prevPage");
+  const nextPageButton = document.getElementById("nextPage");
+  const pageInfo = document.getElementById("pageInfo");
+
+  // Function to display products with pagination
   function displayAllProducts(filteredProducts = productData) {
     allProductsContainer.innerHTML = "";
-    if (filteredProducts.length > 0) {
-      filteredProducts.forEach((product) => {
+
+    // Calculate the start and end index for the current page
+    const startIndex = (currentPage - 1) * productsPerPage;
+    const endIndex = startIndex + productsPerPage;
+    const paginatedProducts = filteredProducts.slice(startIndex, endIndex);
+
+    if (paginatedProducts.length > 0) {
+      paginatedProducts.forEach((product) => {
         const { name, price, images, discount, description } = product;
         const productCard = productCardTemplate.content.cloneNode(true);
 
@@ -70,19 +84,19 @@ document.addEventListener("DOMContentLoaded", () => {
         productCard.querySelector(".accessoriePrice").textContent = price;
 
         const discountElement = productCard.querySelector(".accessorieDiscount");
-        discountElement.textContent = discount ? `${discount}%` : "No discount";
+        discountElement.textContent = discount ? `${discount}%` : "No";
         productCard.querySelector(".product-description").textContent = description || "No description available";
 
         const imageContainer = productCard.querySelector(".acessorieImg");
         if (images && images.length > 0) {
-            const img = document.createElement("img");
-            img.src = images[0];
-            img.alt = "Product Image";
-            imageContainer.appendChild(img);
+          const img = document.createElement("img");
+          img.src = images[0];
+          img.alt = "Product Image";
+          imageContainer.appendChild(img);
         } else {
-            const placeholder = document.createElement("div");
-            placeholder.textContent = "No image available";
-            imageContainer.appendChild(placeholder);
+          const placeholder = document.createElement("div");
+          placeholder.textContent = "No image available";
+          imageContainer.appendChild(placeholder);
         }
 
         const productButton = productCard.querySelector("button");
@@ -96,8 +110,23 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       allProductsContainer.innerHTML = `<p>No products available.</p>`;
     }
+
+    // Update pagination controls
+    updatePaginationControls(filteredProducts.length);
   }
 
+  // Function to update pagination controls
+  function updatePaginationControls(totalProducts) {
+    const totalPages = Math.ceil(totalProducts / productsPerPage);
+    pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+
+    // Disable "Previous" button if on the first page
+    prevPageButton.disabled = currentPage === 1;
+    // Disable "Next" button if on the last page
+    nextPageButton.disabled = currentPage === totalPages;
+  }
+
+  // Function to show search suggestions
   function showSuggestions(filteredProducts, suggestionsBox) {
     suggestionsBox.innerHTML = "";
     if (filteredProducts.length > 0) {
@@ -121,7 +150,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // Event listener for the search input inside the navbar
   searchInput.addEventListener("input", (e) => {
     const searchTerm = e.target.value.toLowerCase();
-    console.log("Search Term:", searchTerm); // Debugging
     if (searchTerm === "") {
       displayAllProducts();
       suggestionsBox.classList.add("hidden");
@@ -129,7 +157,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const filteredProducts = productData.filter(product => 
         product.name.toLowerCase().includes(searchTerm)
       );
-      console.log("Filtered Products:", filteredProducts); // Debugging
       displayAllProducts(filteredProducts);
       showSuggestions(filteredProducts, suggestionsBox);
     }
@@ -147,6 +174,23 @@ document.addEventListener("DOMContentLoaded", () => {
       );
       displayAllProducts(filteredProducts);
       showSuggestions(filteredProducts, suggestionsBoxOutside);
+    }
+  });
+
+  // Event listener for the "Previous" button
+  prevPageButton.addEventListener("click", () => {
+    if (currentPage > 1) {
+      currentPage--;
+      displayAllProducts();
+    }
+  });
+
+  // Event listener for the "Next" button
+  nextPageButton.addEventListener("click", () => {
+    const totalPages = Math.ceil(productData.length / productsPerPage);
+    if (currentPage < totalPages) {
+      currentPage++;
+      displayAllProducts();
     }
   });
 
