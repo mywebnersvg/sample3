@@ -11,14 +11,14 @@ app.use(cors());
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'anusn2914@gmail.com', // Your Gmail address
-        pass: 'nvoj xqug pcnp dlaw'  // Your Gmail App Password
+        user: 'wristnneck786@gmail.com', // Your Gmail address
+        pass: 'rlbg jatk nctv xgmy'  // Your Gmail App Password
     }
 });
   
   const mailOptions = {
-    from: 'anusn2914@gmail.com', // Your Gmail address
-    to: 'anusn2914@gmail.com', // Recipient's email address
+    from: 'wristnneck786@gmail.com', // Your Gmail address
+    to: 'wristnneck786@gmail.com', // Recipient's email address
     subject: 'Test Email',
     text: 'This is a test email sent using Nodemailer.',
   };
@@ -37,7 +37,7 @@ app.post('/send-email', (req, res) => {
 
     const mailOptions = {
         from: 'your-email@gmail.com', // Sender address
-        to: 'anusn2914@gmail.com',   // Receiver address (your Gmail)
+        to: 'wristnneck786@gmail.com',   // Receiver address (your Gmail)
         subject: `New Order: ${productName}`,
         text: `New Order Details:\n\n` +
               `Name: ${name}\n` +
