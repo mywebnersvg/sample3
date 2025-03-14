@@ -225,7 +225,7 @@
                    <div style="font-size: 20px; font-weight: 700;" id="FullPrice"></div>
                 </div>
                 <button type="button" onclick="payNow()" class="payNowBtn">
-                    Pay Now
+                    Buy Now
                 </button>
                 <button type="button" onclick="cancelBtn()" class="cancelBtn"> Cancel </button>
             </form>
@@ -524,93 +524,86 @@ function buyNow() {
     }
 }
 
+function validateForm() {
+    let isValid = true;
+
+    const fields = [
+        { id: "name", errorId: "nameError" },
+        { id: "phoneNumber", errorId: "phoneError" },
+        { id: "email", errorId: "emailError" },
+        { id: "cityInput", errorId: "cityError" },
+        { id: "address", errorId: "addressError" }
+    ];
+
+    fields.forEach(({ id, errorId }) => {
+        const value = document.getElementById(id).value.trim();
+        const errorElement = document.getElementById(errorId);
+        
+        if (!value) {
+            errorElement.style.display = "block";
+            isValid = false;
+        } else {
+            errorElement.style.display = "none";
+        }
+    });
+
+    // Validate phone number (optional: min length)
+    const phone = document.getElementById("phoneNumber").value.trim();
+    if (phone.length < 10) {
+        document.getElementById("phoneError").textContent = "Enter a valid phone number";
+        document.getElementById("phoneError").style.display = "block";
+        isValid = false;
+    }
+
+    return isValid;
+}
+
+
 async function payNow() {
-    // Show waiting pop-up
+    if (!validateForm()) {
+        return; // Stop execution if form is invalid
+    }
+
     const waitingPopup = document.getElementById("waitingPopup");
     waitingPopup.style.display = "flex";
 
-    // Get all input fields
-    const name = document.getElementById("name").value.trim();
-    const phoneNumber = document.getElementById("phoneNumber").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const city = document.getElementById("cityInput").value.trim();
-    const address = document.getElementById("address").value.trim();
-    const quantity = document.getElementById("quantity").value.trim();
-    const selectedColor = document.querySelector(".selectColor.selected")?.getAttribute("data-color") || "default";
-    const productName = document.getElementById("productName").textContent;
-    const productPrice = document.getElementById("productPrice").textContent;
-    const totalPrice = document.getElementById("FullPrice").textContent;
-    const productImages = Array.from(document.querySelectorAll(".swiper-slide img")).map(img => img.src);
+    // Collect form data
+    const orderDetails = {
+        name: document.getElementById("name").value.trim(),
+        phoneNumber: document.getElementById("phoneNumber").value.trim(),
+        email: document.getElementById("email").value.trim(),
+        city: document.getElementById("cityInput").value.trim(),
+        address: document.getElementById("address").value.trim(),
+        productName: document.getElementById("productName").textContent,
+        quantity: document.getElementById("quantityValue").textContent,
+        selectedColor: document.getElementById("selectedColor").textContent,
+        totalPrice: document.getElementById("FullPrice").textContent,
+        productImages: Array.from(document.querySelectorAll(".swiper-slide img")).map(img => img.src)
+    };
 
-    // Validate inputs
-    let isValid = true;
-    if (!name || !phoneNumber || !email || !city || !address) {
-        isValid = false;
-        alert('Please fill in all fields.');
-        waitingPopup.style.display = "none"; // Hide waiting pop-up
-        return;
-    }
+    try {
+      const response = await fetch('https://wristnneck.com/send-email', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(orderDetails)
+});
 
-    if (isValid) {
-        const orderDetails = {
-            name,
-            phoneNumber,
-            email,
-            city,
-            address,
-            productName,
-            quantity,
-            selectedColor,
-            totalPrice,
-            productImages
-        };
+        const result = await response.json();
+        waitingPopup.style.display = "none"; // Hide loading indicator
 
-        try {
-            const response = await fetch('http://localhost:4000/send-email', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(orderDetails)
-            });
-
-            const result = await response.json();
-            if (result.success) {
-                // Store order details in localStorage
-                let orders = JSON.parse(localStorage.getItem("orders")) || [];
-                orders.push(orderDetails);
-                localStorage.setItem("orders", JSON.stringify(orders));
-
-                // Hide waiting pop-up
-                waitingPopup.style.display = "none";
-
-                // Close the modal
-                modalBuyNow.style.top = "-150%";
-                detailBody.style.overflow = "auto";
-
-                // Clear all fields
-                clearFormFields();
-
-                // Show success message
-                alert('Order placed successfully! An email has been sent.');
-            } else {
-                // Hide waiting pop-up
-                waitingPopup.style.display = "none";
-
-                // Show error message
-                alert('Failed to send email. Please try again.');
-            }
-        } catch (error) {
-            console.error('Error:', error);
-
-            // Hide waiting pop-up
-            waitingPopup.style.display = "none";
-
-            // Show error message
-            alert('An error occurred. Please try again.');
+        if (result.success) {
+            localStorage.setItem("orders", JSON.stringify([...JSON.parse(localStorage.getItem("orders") || "[]"), orderDetails]));
+            alert('Order placed successfully! An email has been sent.');
+            clearFormFields();
+        } else {
+            alert('Failed to send email. Please try again.');
         }
+    } catch (error) {
+        waitingPopup.style.display = "none";
+        alert('An error occurred. Please try again.');
     }
 }
+
 
 function clearFormFields() {
     // Clear input fields
